@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> with no props should render initial layout 1`] = `
+Array [
+  <WithStyles(ForwardRef(Container))
+    component="main"
+    maxWidth="xs"
+  >
+    <WithStyles(CssBaseline) />
+    <div
+      className="makeStyles-paper-1"
+    >
+      <WithStyles(ForwardRef(Avatar))
+        className="makeStyles-avatar-2"
+      >
+        <Memo />
+      </WithStyles(ForwardRef(Avatar))>
+      <WithStyles(ForwardRef(Typography))
+        component="h1"
+        variant="h5"
+      >
+        Sign in
+      </WithStyles(ForwardRef(Typography))>
+      <form
+        className="makeStyles-form-3"
+        noValidate={true}
+      >
+        <WithStyles(ForwardRef(TextField))
+          autoComplete="username"
+          autoFocus={true}
+          fullWidth={true}
+          id="username"
+          label="Email Address"
+          margin="normal"
+          name="username"
+          onChange={[Function]}
+          required={true}
+          value=""
+          variant="outlined"
+        />
+        <WithStyles(ForwardRef(TextField))
+          autoComplete="current-password"
+          fullWidth={true}
+          id="password"
+          label="Password"
+          margin="normal"
+          name="password"
+          onChange={[Function]}
+          required={true}
+          type="password"
+          value=""
+          variant="outlined"
+        />
+        <br />
+        <WithStyles(ForwardRef(FormControlLabel))
+          control={
+            <WithStyles(ForwardRef(Checkbox))
+              checked={false}
+              color="primary"
+              name="rememberMe"
+              onChange={[Function]}
+              value="remember"
+            />
+          }
+          label="Remember me"
+        />
+        <WithStyles(ForwardRef(Button))
+          className="makeStyles-submit-4"
+          color="primary"
+          fullWidth={true}
+          onClick={[Function]}
+          type="submit"
+          variant="contained"
+        >
+          Sign In
+        </WithStyles(ForwardRef(Button))>
+        <WithStyles(ForwardRef(Grid))
+          container={true}
+        >
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={true}
+          >
+            <WithStyles(ForwardRef(Link))
+              href="#"
+              variant="body2"
+            >
+              Forgot password?
+            </WithStyles(ForwardRef(Link))>
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+          >
+            <WithStyles(ForwardRef(Link))
+              href="#"
+              variant="body2"
+            >
+              Don't have an account? Sign Up
+            </WithStyles(ForwardRef(Link))>
+          </WithStyles(ForwardRef(Grid))>
+        </WithStyles(ForwardRef(Grid))>
+      </form>
+    </div>
+    <Styled(MuiBox)
+      mt={8}
+    >
+      <Copyright />
+    </Styled(MuiBox)>
+  </WithStyles(ForwardRef(Container))>,
+]
+`;
