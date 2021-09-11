@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
 In the project directory, you can run:
 
 ### `npm start`
@@ -17,6 +10,4 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-=======
-# Scrumptious-Restaurant-Portal
->>>>>>> 991d539d3cd04fde11346dc40a4d94c450a03fd9
+
