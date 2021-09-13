@@ -49,13 +49,13 @@ export default function Login(props) {
   const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false);
   const history = useHistory();
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem("username")) {
-      setRememberMe(true);
+      // setRememberMe(true);
       setUsername(localStorage.getItem("username"));
     }
 
@@ -77,7 +77,7 @@ export default function Login(props) {
     e.preventDefault();
 
     if(validateForm(username, password)){
-      AuthService.login(username, password, rememberMe).then(
+      AuthService.login(username, password).then(
         () => {
           history.push("/admin");
           window.location.reload();
