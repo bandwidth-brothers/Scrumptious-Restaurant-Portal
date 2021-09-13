@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 
@@ -19,8 +16,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="">
+      Scrumptious
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -69,7 +66,7 @@ export default function Login(props) {
 
   const validateForm = (username, password)=> {
     if(username==="" || password===""){
-      setError("username or password is Empty");
+      setError("Email or Password is Empty");
       return false;
     }else {
       return true;
@@ -131,11 +128,11 @@ export default function Login(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" name="rememberMe" checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)} />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
@@ -146,7 +143,7 @@ export default function Login(props) {
           >
             Sign In
           </Button>
-          <Grid container>
+          {/* <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
@@ -157,7 +154,7 @@ export default function Login(props) {
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
       </div>
       <Box mt={8}>
