@@ -1,0 +1,114 @@
+[
+    {
+        "restaurantId": "4fd0b9f2-c316-4f0b-afb0-8ec37b158214",
+        "address": {
+            "addressId": "fab7e247-c7a4-4b08-b87d-af00100250ef",
+            "lineOne": "256 Kin Ave",
+            "lineTwo": "",
+            "city": "Houston",
+            "state": "TX",
+            "zip": "77494"
+        },
+        "name": "Star Buffet2",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    },
+    {
+        "restaurantId": "6878a470-2ae6-4757-97a3-af66410d870f",
+        "address": {
+            "addressId": "bcae4164-b419-491c-80b9-66dc2775364d",
+            "lineOne": "685 Queee Ave",
+            "lineTwo": "",
+            "city": "Orlando",
+            "state": "FL",
+            "zip": "32599"
+        },
+        "name": "ShiBati",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    },
+    {
+        "restaurantId": "69064a10-51f3-40a3-bd34-bf6cdf9b1b12",
+        "address": {
+            "addressId": "bbe53701-77dc-4db8-8779-7fc4b0cc6543",
+            "lineOne": "689 Lam Rd",
+            "lineTwo": "",
+            "city": "Suger Land",
+            "state": "TX",
+            "zip": "77489"
+        },
+        "name": "Tokyo Star",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    },
+    {
+        "restaurantId": "72c98844-bd7e-44a0-8d50-d779b38b7c50",
+        "address": {
+            "addressId": "0c50b7b2-0a5d-45fb-aeeb-78e55734cbfb",
+            "lineOne": "7809 Sky Rd",
+            "lineTwo": "",
+            "city": "Orlando",
+            "state": "FL",
+            "zip": "32558"
+        },
+        "name": "Soccer Bar",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    },
+    {
+        "restaurantId": "935a972c-6c6f-4c58-9e50-1b3f820e5396",
+        "address": {
+            "addressId": "7a4ae41f-7218-49fc-b274-65a7bd375c3a",
+            "lineOne": "687 Cas Rd",
+            "lineTwo": "",
+            "city": "Gainesville",
+            "state": "FL",
+            "zip": "32601"
+        },
+        "name": "Pizza King",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    },
+    {
+        "restaurantId": "97c87c89-ae02-4088-a193-dd2b4ed5f565",
+        "address": {
+            "addressId": "89ca8c74-180e-44d4-afe6-e916304919fc",
+            "lineOne": "939 Dodge Rd",
+            "lineTwo": "",
+            "city": "Tampa",
+            "state": "FL",
+            "zip": "32989"
+        },
+        "name": "Sports Bar",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    },
+    {
+        "restaurantId": "f4855ecd-da59-4271-8575-4470b64fc9f9",
+        "address": {
+            "addressId": "6f9a07ab-f935-47dd-be1b-421183ffee67",
+            "lineOne": "246 King ave",
+            "lineTwo": "",
+            "city": "Houston",
+            "state": "TX",
+            "zip": "77077"
+        },
+        "name": "star buffet",
+        "rating": 0.0,
+        "priceCategory": null,
+        "isActive": true,
+        "restaurantCategories": []
+    }
+]
