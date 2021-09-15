@@ -4,7 +4,6 @@ pipeline{
     stage('checkout'){
       steps{
         checkout scm
-        sh "chmod +x ./mvnw"
       }
     }
     stage('deploy'){
