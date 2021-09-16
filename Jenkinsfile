@@ -14,7 +14,7 @@ pipeline{
 						docker.image("ss-scrumptious-repo:restaurant-portal").push()
 					}
 				}
-				sh "docker prune -a"
+				sh "docker prune --all"
 			}
 		}
 	}
