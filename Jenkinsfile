@@ -14,8 +14,7 @@ pipeline{
 						docker.image("ss-scrumptious-repo:restaurant-portal").push()
 					}
 				}
-				sh "docker image rm ss-scrumptious-repo:restaurant-portal"
-				sh "docker image rm 419106922284.dkr.ecr.us-east-2.amazonaws.com/ss-scrumptious-repo:restaurant-portal"
+				sh "docker system prune -fa"
 			}
 		}
 	}
