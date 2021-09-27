@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Admin from "./pages/Admin";
 import Login from "./components/Login";
 import PrivateRoute from "./utils/PrivateRoute";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
         <Switch>
           <Route exact path={["/","/login"]}>
             <Login />
+          </Route>
+          <Route exact path={["/register"]}>
+            <Register />
           </Route>
           <PrivateRoute path="/admin">
             <Admin />

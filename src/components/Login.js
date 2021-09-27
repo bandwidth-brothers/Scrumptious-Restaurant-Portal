@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../services/AuthService';
+import Grid from '@material-ui/core/Grid';
 
 function Copyright() {
   return (
@@ -79,7 +80,7 @@ export default function Login(props) {
     if(validateForm(username, password)){
       AuthService.login(username, password).then(
         () => {
-          history.push("/admin");
+          history.push("/admin/list");
           window.location.reload();
         },
         err => {          
@@ -143,18 +144,18 @@ export default function Login(props) {
           >
             Sign In
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
+          <Grid container>
+            {/* <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid> */}
+          </Grid>
         </form>
       </div>
       <Box mt={8}>

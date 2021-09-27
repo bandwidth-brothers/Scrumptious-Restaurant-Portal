@@ -13,6 +13,8 @@ import AddRestaurant from '../components/AddRestaurant';
 import DashBoard from '../components/Dashboard';
 import AddMenu from '../components/AddMenu'
 import MenuList from '../components/MenuList';
+import UpdateRestaurant from '../components/UpdateRestaurant';
+import UpdateMenu from '../components/UpdateMenu'
 
 function Copyright() {
   return (
@@ -158,7 +160,7 @@ const styles = {
   main: {
     flex: 1,
     padding: theme.spacing(6, 4),
-    background: '#eaeff1',
+    background: '#fff',
   },
   footer: {
     padding: theme.spacing(2),
@@ -196,11 +198,13 @@ function Paperbase(props) {
             <Header onDrawerToggle={handleDrawerToggle} />
             <main className={classes.main}>
               <Switch>
-                <Route exact path="/admin" component={DashBoard} />
+                <Route exact path="/admin/list" component={DashBoard} />
                 <Route path="/admin/restaurant/add" component={AddRestaurant} />
-                <Route path="/news" component={Profile} />
+                <Route path="/admin/profile" component={Profile} />
                 <Route path='/admin/restaurant/menu/add' component={AddMenu} />
                 <Route path='/admin/restaurant/menu/list' component={MenuList} />
+                <Route path="/admin/restaurant/update/:id" component={UpdateRestaurant} />
+                <Route path="/admin/restaurant/menu/update/:id" component={UpdateMenu} />
               </Switch>
             </main>
             <footer className={classes.footer}>

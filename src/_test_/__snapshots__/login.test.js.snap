@@ -52,18 +52,6 @@ Array [
           variant="outlined"
         />
         <br />
-        <WithStyles(ForwardRef(FormControlLabel))
-          control={
-            <WithStyles(ForwardRef(Checkbox))
-              checked={false}
-              color="primary"
-              name="rememberMe"
-              onChange={[Function]}
-              value="remember"
-            />
-          }
-          label="Remember me"
-        />
         <WithStyles(ForwardRef(Button))
           className="makeStyles-submit-4"
           color="primary"
@@ -79,20 +67,9 @@ Array [
         >
           <WithStyles(ForwardRef(Grid))
             item={true}
-            xs={true}
           >
             <WithStyles(ForwardRef(Link))
-              href="#"
-              variant="body2"
-            >
-              Forgot password?
-            </WithStyles(ForwardRef(Link))>
-          </WithStyles(ForwardRef(Grid))>
-          <WithStyles(ForwardRef(Grid))
-            item={true}
-          >
-            <WithStyles(ForwardRef(Link))
-              href="#"
+              href="/register"
               variant="body2"
             >
               Don't have an account? Sign Up
