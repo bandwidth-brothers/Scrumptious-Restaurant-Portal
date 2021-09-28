@@ -8,6 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import PropTypes from 'prop-types';
 import React from 'react';
+import AuthService from '../services/AuthService';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -36,6 +37,16 @@ const styles = (theme) => ({
 function Header(props) {
   const { classes, onDrawerToggle } = props;
 
+
+  const handleLogout = (e) => {
+
+    const auth = AuthService.getCurrentUser();
+    if (auth) {
+      localStorage.removeItem("user");
+    }
+    window.location.reload();
+  }
+
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -54,8 +65,18 @@ function Header(props) {
               </Grid>
             </Hidden>
             <Grid item xs />
+            {/* <Grid item>
+            <IconButton color="inherit" sx={{ p: 0.5 }}>
+                <Avatar src="" alt="John" >
+                  JohnSommehtn
+                </Avatar>                
+              </IconButton>
+            </Grid> */}
             <Grid item>
-              <Button color="inherit">Logout</Button> 
+              <Button
+                color="inherit"
+                onClick={(e) => handleLogout(e)}
+              >Logout</Button>
             </Grid>
           </Grid>
         </Toolbar>

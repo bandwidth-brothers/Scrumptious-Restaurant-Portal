@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function AddMenu() {
+function AddMenu(props) {
 
     const classes = useStyles();
     const [alert, setAlert] = useState(false);
@@ -102,7 +102,7 @@ function AddMenu() {
         const auth = AuthService.getCurrentUser();
 
         if (auth) {
-            RestaurantService.createMenu(restaurant.restaurantId, menu)
+            RestaurantService.createMenu(auth.userId, restaurant.restaurantId, menu)
                 .then(function (response) {
                     const re = response.data;
                     console.log(re);

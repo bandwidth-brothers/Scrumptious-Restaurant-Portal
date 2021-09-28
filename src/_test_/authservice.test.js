@@ -16,7 +16,7 @@ describe('fetchData', () => {
     await expect(AuthService.login('Lamm@test.com', "1223", false)).rejects.toThrow(errorMessage);
 
     expect(axios.post).toHaveBeenCalledWith(
-      `http://localhost:9040/login`, { "password": "1223", "username": "Lamm@test.com" }
+      `http://localhost:8080/auth/login`, { "password": "1223", "username": "Lamm@test.com" }
     );
   });
 

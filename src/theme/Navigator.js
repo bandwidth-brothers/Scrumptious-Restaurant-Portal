@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,28 +12,31 @@ import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
+import { RestaurantService } from "../services/RestaurantService";
+import AuthService from "../services/AuthService";
 
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ProfileStateContext } from '../pages/Admin';
 
 const categories = [
   {
     id: 'Restaurant',
     children: [
-      { id: 'Restaurant List', icon: <DnsRoundedIcon />, path:'/admin' },
-      { id: 'Add Restaurant', icon: <PermMediaOutlinedIcon />, path:'/admin/restaurant/add' },
+      { id: 'Restaurant List', icon: <DnsRoundedIcon />, path: '/admin/list' },
+      { id: 'Add Restaurant', icon: <PermMediaOutlinedIcon />, path: '/admin/restaurant/add' },
     ],
   },
   {
     id: 'Menu',
     children: [
-      { id: 'Menu List', icon: <DnsRoundedIcon />, path:'/admin/restaurant/menu/list' },
-      { id: 'Add Menu', icon: <PermMediaOutlinedIcon />, path:'/admin/restaurant/menu/add' },
+      { id: 'Menu List', icon: <DnsRoundedIcon />, path: '/admin/restaurant/menu/list' },
+      { id: 'Add Menu', icon: <PermMediaOutlinedIcon />, path: '/admin/restaurant/menu/add' },
     ],
   },
   {
     id: 'Profile',
     children: [
-      { id: 'Profile', icon: <PeopleIcon />, path:'/profile' },
+      { id: 'Profile', icon: <PeopleIcon />, path: '/admin/profile' },
       // { id: 'Add Menu', icon: <TimerIcon /> },
     ],
   },
@@ -62,7 +65,7 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(2),
   },
   firebase: {
-    fontSize: 24,
+    fontSize: 18,
     color: theme.palette.common.white,
   },
   itemActiveItem: {
@@ -82,12 +85,31 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
+  const [profile, setProfile] = useContext(ProfileStateContext);
+  // const [name, setName] = useState("");
+
+  useEffect(() => {
+
+    const auth = AuthService.getCurrentUser();
+
+    if (auth && !profile) {
+      RestaurantService.getProfile(auth.userId)
+        .then(function (response) {
+          const res = response.data;
+          setProfile(res);
+          console.log("api called");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, [profile]);
 
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-        Scrumptious
+          Scrumptious Restaurant
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
@@ -98,7 +120,7 @@ function Navigator(props) {
               primary: classes.itemPrimary,
             }}
           >
-            Restaurant Managent
+            Hi, {profile? profile.firstName + " " + profile.lastName : ""}
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (

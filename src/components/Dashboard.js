@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { RestaurantsStateContext } from '../pages/Admin';
 import AuthService from '../services/AuthService';
 import { RestaurantService } from '../services/RestaurantService';
@@ -40,12 +41,13 @@ const StyledTableRow = withStyles((theme) => ({
 export default function DashBoard() {
   const classes = useStyles();
   const [restaurants, setRestaurants] = useContext(RestaurantsStateContext);
+  const history = useHistory();
 
   useEffect(() => {
     const auth = AuthService.getCurrentUser();
 
-    if (auth) {
-      RestaurantService.getRestaurantList()
+    if (auth && restaurants === null) {
+      RestaurantService.getRestaurantList(auth.userId)
         .then(function (response) {
           const re = response.data;
           setRestaurants(re);
@@ -55,7 +57,12 @@ export default function DashBoard() {
         });
     }
 
-  }, [setRestaurants]);
+  }, [restaurants, setRestaurants]);
+
+  const handleEdit = (row)=>{
+    console.log(row);
+    history.push("/admin/restaurant/update/" + row.restaurantId);
+  }
 
   return (
     <div>
@@ -68,17 +75,22 @@ export default function DashBoard() {
                 <StyledTableCell align="right">IsActive</StyledTableCell>
                 <StyledTableCell align="right">Price_Category</StyledTableCell>
                 <StyledTableCell align="right">Rating</StyledTableCell>
+                {/* <StyledTableCell align="right"></StyledTableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
               {restaurants && restaurants.map((row) => (
-                <StyledTableRow key={row.restaurantId}>
+                <StyledTableRow key={row.restaurantId} 
+                onClick={()=>handleEdit(row)}>
                   <StyledTableCell component="th" scope="row">
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.isActive === true ? "true" : "false"}</StyledTableCell>
                   <StyledTableCell align="right">{row.priceCategory === null ? "N/A" : row.priceCategory}</StyledTableCell>
                   <StyledTableCell align="right">{row.rating === 0 ? "0" : row.rating}</StyledTableCell>
+                  {/* <StyledTableCell align="right">
+                    <Button variant="contained" color="primary" onClick={()=>handleEdit(row)}>EDIT</Button>
+                  </StyledTableCell>                   */}
                 </StyledTableRow>
               ))}
             </TableBody>

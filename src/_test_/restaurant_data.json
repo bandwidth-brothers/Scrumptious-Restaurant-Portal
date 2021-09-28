@@ -1,6 +1,6 @@
 [
     {
-        "restaurantId": "4fd0b9f2-c316-4f0b-afb0-8ec37b158214",
+        "restaurantId": "1",
         "address": {
             "addressId": "fab7e247-c7a4-4b08-b87d-af00100250ef",
             "lineOne": "256 Kin Ave",
@@ -16,7 +16,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "6878a470-2ae6-4757-97a3-af66410d870f",
+        "restaurantId": "2",
         "address": {
             "addressId": "bcae4164-b419-491c-80b9-66dc2775364d",
             "lineOne": "685 Queee Ave",
