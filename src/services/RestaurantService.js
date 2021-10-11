@@ -3,41 +3,56 @@ import http from "../utils/http-common";
 
 
 const getRestaurantList = (uid) => {
-  return http.get(`/owner/${uid}/restaurant/`);
+  return http.get(`/restaurants/owners/${uid}/restaurants/`);
 };
 
-const createRestaurant = (uid, data) => {
-  return http.post(`/owner/${uid}/restaurant`, data);
+const createRestaurant = (data) => {
+  return http.post(`/restaurants/restaurants`, data);
 };
 
-const updateRestaurant = (uid, mid, data) => {
-  return http.put(`/owner/${uid}/restaurant/${mid}`, data);
+const updateRestaurant = (uid, rid, data) => {
+  return http.put(`/restaurants/owners/${uid}/restaurants/${rid}`, data);
 };
 
-const createMenu = (uid, rid, data) => {
-  return http.post(`/owner/${uid}/restaurant/${rid}/menu-items`, data);
+const createMenu = (rid, data) => {
+  return http.post(`/menu/restaurants/${rid}/menu-items`, data);
 };
 
 const getMenuList = (uid, rid) => {
-  return http.get(`/owner/${uid}/restaurant/${rid}/menu-items`);
+  return http.get(`/menu/restaurants/${rid}/menu-items`);
 };
 
-const getMenuItemById = (uid, mid) => {
-  return http.get(`/owner/${uid}/restaurant/menu-items/${mid}`);
+const getMenuItemById = (mid) => {
+  return http.get(`/menu/restaurants/menu-items/${mid}`);
 };
 
-const updateMenuItemById = (uid, mid, data) => {
-  return http.put(`/owner/${uid}/restaurant/menu-items/${mid}`, data);
+const updateMenuItemById = (rid, mid, data) => {
+  return http.put(`/menu/restaurants/${rid}/menu-items/${mid}`, data);
 };
 
 const getProfile = (uid) => {
-  return http.get(`/owner/${uid}`);
+  return http.get(`/owners/${uid}`);
 };
 
 const updateProfile = (uid, data) => {
   return http.put(`/owner/${uid}`, data);
 };
 
+const getOrderList = (rid) => {
+  return http.get(`/orders/restaurants/${rid}/orders`);
+};
+
+const updatetOrderStatus = (rid, data) => {
+  return http.put(`/orders/restaurants/${rid}/orders`, data);
+};
+
+const getOrderById = (oid) => {
+  return http.get(`/orders/${oid}`);
+};
+
+const deactivateRestaurant = (rid) => {
+  return http.delete(`/restaurants/${rid}`);
+};
 
 export const RestaurantService = {
   getRestaurantList,
@@ -48,5 +63,9 @@ export const RestaurantService = {
   getMenuItemById,
   updateMenuItemById,
   getProfile,
-  updateProfile
+  updateProfile,
+  getOrderList,
+  updatetOrderStatus,
+  getOrderById,
+  deactivateRestaurant
 };

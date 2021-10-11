@@ -15,6 +15,9 @@ import AddMenu from '../components/AddMenu'
 import MenuList from '../components/MenuList';
 import UpdateRestaurant from '../components/UpdateRestaurant';
 import UpdateMenu from '../components/UpdateMenu'
+import OrderList from '../components/OrderList';
+import OrderDetail from '../components/OrderDetail';
+import ArchivedOrders from '../components/ArchivedOrders';
 
 function Copyright() {
   return (
@@ -202,9 +205,12 @@ function Paperbase(props) {
                 <Route path="/admin/restaurant/add" component={AddRestaurant} />
                 <Route path="/admin/profile" component={Profile} />
                 <Route path='/admin/restaurant/menu/add' component={AddMenu} />
-                <Route path='/admin/restaurant/menu/list' component={MenuList} />
+                <Route path='/admin/restaurant/menu/list/:rid' component={MenuList} />
                 <Route path="/admin/restaurant/update/:id" component={UpdateRestaurant} />
-                <Route path="/admin/restaurant/menu/update/:id" component={UpdateMenu} />
+                <Route path="/admin/restaurant/:rid/menu/update/:id" component={UpdateMenu} />
+                <Route path="/admin/restaurant/order/list/:rid" component={OrderList} />
+                <Route path="/admin/restaurant/order/archived/:rid" component={ArchivedOrders} />
+                <Route path="/admin/restaurant/:rid/order/:id" component={OrderDetail} />
               </Switch>
             </main>
             <footer className={classes.footer}>
