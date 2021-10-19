@@ -11,8 +11,7 @@ pipeline{
 		stage('analysis'){
 			steps{
 				sh 'npm install'
-				sh 'echo y | npm run eject'
-				sh 'npm run test:ci'
+				sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter'
 			}
 		}
 	    	stage('deploy'){
