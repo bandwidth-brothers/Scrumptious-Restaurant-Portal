@@ -11,7 +11,7 @@ pipeline{
 		stage('analysis'){
 			steps{
 				sh 'npm install'
-				sh 'npm test'
+				sh 'npm run test -- --coverage --ci --testResultsProcessor="jest-junit"'
 			}
 		}
 	    	stage('deploy'){
