@@ -47,5 +47,33 @@
   "devDependencies": {
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6"
+  },
+  "jest": {
+  "setupFiles": [
+    "./src/setupTests.js"
+  ],
+  "collectCoverageFrom": [
+    "**/*.{js,jsx}",
+    "!coverage/**",
+    "!node_modules/**",
+    "!src/index.js",
+    "!src/setupTests.js",
+    "!public/**",
+    "!server-build/**"
+  ],
+  "moduleNameMapper": {
+    "\\.(css|less|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
+  },
+  "coverageDirectory": "reports/coverage",
+  "coverageReporters": [
+    "json",
+    "lcov",
+    "text"
+  ],
+  "testResultsProcessor": "jest-sonar-reporter"
+  },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml"
   }
 }
