@@ -50,9 +50,6 @@
     "enzyme-adapter-react-16": "^1.15.6"
   },
   "jest": {
-  "setupFiles": [
-    "./src/setupTests.js"
-  ],
   "collectCoverageFrom": [
     "**/*.{js,jsx}",
     "!coverage/**",
