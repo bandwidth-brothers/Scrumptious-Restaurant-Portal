@@ -8,7 +8,7 @@ pipeline{
 		}
 		stage('analysis'){
 			steps{
-				sh 'sonarqube'
+				sh 'sonar-scanner'
 			}
 		}
 	    	stage('deploy'){
