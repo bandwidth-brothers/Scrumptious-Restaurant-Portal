@@ -11,7 +11,7 @@ pipeline{
 		stage('analysis'){
 			steps{
 				sh 'npm install'
-				sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter'
+				sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter --setupFiles=[./src/setupTests.js]'
 			}
 		}
 	    	stage('deploy'){
