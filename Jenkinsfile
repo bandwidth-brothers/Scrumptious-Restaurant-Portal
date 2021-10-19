@@ -11,6 +11,7 @@ pipeline{
 		stage('analysis'){
 			steps{
 				sh 'npm install'
+				sh 'npm run eject'
 				sh 'npm run test:ci'
 			}
 		}
