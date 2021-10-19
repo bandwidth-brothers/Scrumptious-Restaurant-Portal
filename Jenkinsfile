@@ -8,7 +8,7 @@ pipeline{
 		}
 		stage('analysis'){
 			steps{
-				sh 'sonar-scanner'
+				sh 'npm run tests'
 			}
 		}
 	    	stage('deploy'){
