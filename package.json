@@ -62,7 +62,6 @@
   "moduleNameMapper": {
     "\\.(css|less|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
   },
-  "coverageDirectory": "reports/coverage",
   "coverageReporters": [
     "json",
     "lcov",
