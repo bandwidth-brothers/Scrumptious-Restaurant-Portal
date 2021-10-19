@@ -10,7 +10,7 @@ pipeline{
 		}
 		stage('analysis'){
 			steps{
-				sh 'npm run test'
+				sh 'npm test'
 			}
 		}
 	    	stage('deploy'){
