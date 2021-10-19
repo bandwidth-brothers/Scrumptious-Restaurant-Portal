@@ -6,7 +6,12 @@ pipeline{
 				checkout scm
 			}
 		}
-    	stage('deploy'){
+		stage('analysis'){
+			steps{
+				sh 'sonarqube'
+			}
+		}
+	    	stage('deploy'){
 			steps{
 				sh "docker build -t ss-scrumptious-repo:restaurant-portal ."
 				script{
