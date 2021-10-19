@@ -11,7 +11,7 @@ pipeline{
 		stage('analysis'){
 			steps{
 				sh 'npm install'
-				sh 'react-scripts eject -y'
+				sh 'npm run eject -- -y'
 				sh 'npm run test:ci'
 			}
 		}
