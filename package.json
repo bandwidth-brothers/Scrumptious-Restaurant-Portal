@@ -71,8 +71,6 @@
     "lcov",
     "text"
   ],
-  "testResultsProcessor": "jest-sonar-reporter"
-  },
   "jestSonar": {
     "reportPath": "reports",
     "reportFile": "test-reporter.xml"
