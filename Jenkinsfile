@@ -1,7 +1,4 @@
 pipeline{
-	agent {
-	    docker {image "node:latest"}
-	}
 	stages{
 		stage('checkout'){
 			steps{
@@ -10,8 +7,10 @@ pipeline{
 		}
 		stage('analysis'){
 			steps{
-				sh 'npm install'
-				sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter --setupFiles=[./src/setupTests.js] --coverageDirectory=reports/coverage'
+				nodejs(nodeJSInstallationName: 'node'){
+					sh 'npm install'
+					sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter --setupFiles=[./src/setupTests.js] --coverageDirectory=reports/coverage'
+				}
 			}
 		}
 	    	stage('deploy'){
