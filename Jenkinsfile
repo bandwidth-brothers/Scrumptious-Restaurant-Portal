@@ -16,7 +16,7 @@ pipeline{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
 					sh 'npm run test:ci'
-					sh 'ls'
+					sh 'ls lcov-report'
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
 					}
