@@ -8,7 +8,7 @@ pipeline{
 		}
 		stage('analysis'){
 			tools{
-				sonar-scanner 'sonar'
+				sonarScanner 'sonar'
 			}
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
