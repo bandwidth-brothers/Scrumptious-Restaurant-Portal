@@ -11,7 +11,10 @@ pipeline{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
 					sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter --setupFiles=[./src/setupTests.js] --coverageDirectory=reports/coverage'
-					sh 'sonar-scanner'
+					def scannerHome = tool 'sonar'
+					withSonarQubeEnv(installationName:'Sonar Home'){
+						sh "${scannerHome}/bin/sonar-scanner"
+					}
 					sh 'npm uninstall'
 				}
 			}
