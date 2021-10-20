@@ -7,7 +7,9 @@ pipeline{
 			}
 		}
 		stage('analysis'){
-			def scannerHome = tool 'sonar'
+			tools{
+				sonar-scanner 'sonar'
+			}
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
