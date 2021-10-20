@@ -7,8 +7,8 @@ pipeline{
 			}
 		}
 		stage('analysis'){
+			def scannerHome = tool 'sonar'
 			steps{
-				def scannerHome = tool 'sonar'
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
 					sh 'npm run test --ci --coverage --testResultsProcessor=jest-sonar-reporter --setupFiles=[./src/setupTests.js] --coverageDirectory=reports/coverage'
