@@ -1,6 +1,6 @@
 pipeline{
 	agent any
-	env{
+	environment{
 		scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 	}
 	stages{
