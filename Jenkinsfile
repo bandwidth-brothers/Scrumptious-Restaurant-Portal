@@ -8,7 +8,7 @@ pipeline{
 		}
 		stage('analysis'){
 			tools{
-				hudson.plugins.sonar.SonarRunnerInstallation 'sonar'
+				hudson.plugins.sonar.SonarRunnerInstallation
 			}
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
