@@ -1,5 +1,8 @@
 pipeline{
 	agent any
+	env{
+		scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+	}
 	stages{
 		stage('checkout'){
 			steps{
@@ -7,9 +10,7 @@ pipeline{
 			}
 		}
 		stage('analysis'){
-			env{
-				scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-			}
+			
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
