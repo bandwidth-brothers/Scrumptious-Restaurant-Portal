@@ -49,8 +49,8 @@ export default function DashBoard() {
     if (auth && restaurants === null) {
       RestaurantService.getRestaurantList(auth.userId)
         .then(function (response) {
-          const re = response.data;
-          setRestaurants(re);
+          const result = response.data;
+          setRestaurants(result);
         })
         .catch(function (error) {
           console.log(error);
@@ -59,13 +59,16 @@ export default function DashBoard() {
 
   }, [restaurants, setRestaurants]);
 
-  const handleEdit = (row)=>{
-    console.log(row);
-    history.push("/admin/restaurant/update/" + row.restaurantId);
+  const handleEdit = (row) => {
+    // console.log(row);
+    if (row.isActive === false) {
+      return;
+    }
+    history.push("/admin/restaurant/update/" + row.id);
   }
 
   return (
-    <div>
+    <div>{restaurants ? (
       <Grid item xs={12}>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
@@ -78,25 +81,18 @@ export default function DashBoard() {
                 {/* <StyledTableCell align="right"></StyledTableCell> */}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {restaurants && restaurants.map((row) => (
-                <StyledTableRow key={row.restaurantId} 
-                onClick={()=>handleEdit(row)}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.isActive === true ? "true" : "false"}</StyledTableCell>
-                  <StyledTableCell align="right">{row.priceCategory === null ? "N/A" : row.priceCategory}</StyledTableCell>
-                  <StyledTableCell align="right">{row.rating === 0 ? "0" : row.rating}</StyledTableCell>
-                  {/* <StyledTableCell align="right">
-                    <Button variant="contained" color="primary" onClick={()=>handleEdit(row)}>EDIT</Button>
-                  </StyledTableCell>                   */}
-                </StyledTableRow>
-              ))}
-            </TableBody>
+            <TableBody>{restaurants && restaurants.map((row) => (
+              <StyledTableRow key={row.id}
+                onClick={() => handleEdit(row)}>
+                <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
+                <StyledTableCell align="right">{row.isActive === true ? "true" : "false"}</StyledTableCell>
+                <StyledTableCell align="right">{row.priceCategory === null ? "N/A" : row.priceCategory}</StyledTableCell>
+                <StyledTableCell align="right">{row.rating === 0 ? "0" : row.rating}</StyledTableCell>
+              </StyledTableRow>
+            ))}</TableBody>
           </Table>
         </TableContainer>
-      </Grid>
+      </Grid>) : "Please Create a Reataurant"}
     </div>
   );
 }

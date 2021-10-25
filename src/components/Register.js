@@ -54,8 +54,6 @@ export default function Register() {
             return false;
         }
 
-
-
         if (registerData.phone === "") {
             seterrorAlertContent("phone is empty");
             setErrorAlert(true);
@@ -71,7 +69,6 @@ export default function Register() {
         seterrorAlertContent("");
         setErrorAlert(false);
         return true;
-
     }
 
 
@@ -110,8 +107,6 @@ export default function Register() {
             }
         );
 
-
-        // console.log(data);
     };
 
     return (

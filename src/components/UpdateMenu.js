@@ -69,8 +69,9 @@ function UpdateMenu(props) {
 
 
     const id = props.match.params.id;
+    const rid = props.match.params.rid;
     const [menu, setMenu] = useState(initialMenuState);
-    const [categories, setcategories] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [data,setData] = useState(null)
 
@@ -78,13 +79,12 @@ function UpdateMenu(props) {
         const auth = AuthService.getCurrentUser();
 
         if (auth) {
-            RestaurantService.getMenuItemById(auth.userId, id)
+            RestaurantService.getMenuItemById(id)
                 .then(function (response) {
                     const res = response.data;
+                    console.log(response.data)
                     setMenu(res);
-                    setData(res);
-
-                
+                    setData(res);                
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -93,28 +93,21 @@ function UpdateMenu(props) {
     }, []);
 
     useEffect(() => {
-        if (data !== null) {
-            setcategories(data.categories.map(r => r.type))
+        if (data && data.categories) {
+            setCategories(data.categories.map(r => r.type))
         }
     }, [data]);
 
     useEffect(() => {
-        if (data !== null) {
-            setTags(data.tags.map(r => r.tagType))
+        if (data && data.tags) {
+            setTags(data.tags.map(r => r.type))
         }
     }, [data]);
-
-    // useEffect(() => {
-    //     if (alert === true) {
-    //         console.log(alert);
-    //         setTimeout(() => setAlert(false), 3000);
-    //     }
-    // }, [alert]);
 
     const handleAddChip = (chip, name) => {
 
         if (name === "categories") {            
-            setcategories([...categories, chip]);
+            setCategories([...categories, chip]);
         }else{
             setTags([...tags, chip]);
         }
@@ -124,7 +117,7 @@ function UpdateMenu(props) {
 
     const handleDeleteChip = (chip, index, name) => {        
         if (name === "categories") {            
-            setcategories(categories.filter((c) => c !== chip));
+            setCategories(categories.filter((c) => c !== chip));
         }else{
             setTags(tags.filter((c) => c !== chip));
         }
@@ -161,20 +154,21 @@ function UpdateMenu(props) {
             return;
         }
 
-        console.log(menu);
+        // console.log(menu);
         menu.categories = categories;
         menu.tags = tags;
         const auth = AuthService.getCurrentUser();
 
         if (auth) {
-            RestaurantService.updateMenuItemById(auth.userId, id, menu)
+            RestaurantService.updateMenuItemById(rid, id, menu)
                 .then(function (response) {
                     // const re = response.data;
                     setAlertContent("Restaurant Update Saved Succeed");
                     setAlert(true);
                     setTimeout(() => {
 
-                        history.push("/admin/restaurant/menu/list");
+                        history.push("/admin/restaurant/menu/list/" + rid);
+                        // history.goBack();
                     }, 3000);
 
                 })
@@ -218,7 +212,7 @@ function UpdateMenu(props) {
                                                 id="description"
                                                 name="description"
                                                 label="Description"
-                                                value={menu.description}
+                                                value={menu.description ? menu.description : "" }
                                                 fullWidth
                                                 onChange={handleInputChange}
                                                 // autoComplete="store-name"
@@ -282,7 +276,7 @@ function UpdateMenu(props) {
                                                 name="size"
                                                 label="Size"
                                                 fullWidth
-                                                value={menu.size}
+                                                value={menu.size ? menu.size : ""}
                                                 onChange={handleInputChange}
                                             // autoComplete="shipping address-line1"
                                             />
