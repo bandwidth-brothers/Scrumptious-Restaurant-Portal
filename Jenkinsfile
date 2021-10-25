@@ -14,6 +14,7 @@ pipeline{
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
+					sh 'npm build'
 					sh 'npm run test:ci'
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
