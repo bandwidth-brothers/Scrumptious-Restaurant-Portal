@@ -47,7 +47,7 @@ export default function DashBoard() {
     const auth = AuthService.getCurrentUser();
 
     if (auth && restaurants === null) {
-      RestaurantService.getRestaurantList(auth.userId)
+      RestaurantService.getRestaurantsList(auth.userId)
         .then(function (response) {
           const re = response.data;
           setRestaurants(re);
@@ -59,9 +59,9 @@ export default function DashBoard() {
 
   }, [restaurants, setRestaurants]);
 
-  const handleEdit = (row)=>{
+  const handleEdit = (row) => {
     console.log(row);
-    history.push("/admin/restaurant/update/" + row.restaurantId);
+    history.push("/admin/restaurant/update/" + row.id);
   }
 
   return (
@@ -80,8 +80,8 @@ export default function DashBoard() {
             </TableHead>
             <TableBody>
               {restaurants && restaurants.map((row) => (
-                <StyledTableRow key={row.restaurantId} 
-                onClick={()=>handleEdit(row)}>
+                <StyledTableRow key={row.id}
+                  onClick={() => handleEdit(row)}>
                   <StyledTableCell component="th" scope="row">
                     {row.name}
                   </StyledTableCell>

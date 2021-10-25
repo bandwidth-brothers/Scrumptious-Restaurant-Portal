@@ -64,15 +64,15 @@ function UpdateRestaurant(props) {
     const history = useHistory();
 
     const [restaurants, setRestaurants] = useContext(RestaurantsStateContext);
-    const [res, setRes] = useState(null);
+    const [restaurant, setRestaurant] = useState(null);
 
 
 
     const id = props.match.params.id;
-    // const res = restaurants.find(s => s.restaurantId === parseInt(id))
+    // const restaurant = restaurants.find(s => s.id === parseInt(id))
     const initialFormDataState = {
         name: '',
-        categories: [],
+        cuisines: [],
         phone: '',
         priceCategory: '',
         lineOne: '',
@@ -83,7 +83,7 @@ function UpdateRestaurant(props) {
 
     };
     const [formData, setFormData] = useState(initialFormDataState);
-    const [cate, setCate] = useState([]);
+    const [cuisines, setCategories] = useState([]);
 
     const [alertContent, setAlertContent] = useState('');
     const [alert, setAlert] = useState(false);
@@ -130,10 +130,9 @@ function UpdateRestaurant(props) {
 
 
     useEffect(() => {
-
+        console.log(restaurants)
         if (restaurants !== null) {
-
-            setRes(restaurants.find(s => s.restaurantId === parseInt(id)));
+            setRestaurant(restaurants.find(s => s.id === parseInt(id)));
         } else {
             history.push("/admin/list");
         }
@@ -142,37 +141,39 @@ function UpdateRestaurant(props) {
 
     useEffect(() => {
 
-        if (res !== null) {
+        if (restaurant !== null) {
             setFormData({
-                name: res.name,
-                categories: [],
-                phone: res.phone,
-                priceCategory: res.priceCategory,
-                lineOne: res.address.lineOne,
-                lineTwo: res.address.lineTwo,
-                city: res.address.city,
-                state: res.address.state,
-                zip: res.address.zip,
+                name: restaurant.name,
+                cuisines: [],
+                phone: restaurant.phone,
+                priceCategory: restaurant.priceCategory,
+                lineOne: restaurant.address.lineOne,
+                lineTwo: restaurant.address.lineTwo,
+                city: restaurant.address.city,
+                state: restaurant.address.state,
+                zip: restaurant.address.zip,
             });
         }
 
-    }, [res]);
+    }, [restaurant]);
 
     useEffect(() => {
-        if (res !== null) {
-            setCate(res.restaurantCategories.map(r => r.type))
+        console.log(restaurant)
+
+        if (restaurant !== null) {
+            setCategories(restaurant.cuisines.map(r => r.type))
         }
-    }, [res]);
+    }, [restaurant]);
 
 
     const handleAddChip = chip => {
 
-        setCate([...cate, chip]);
-        console.log(cate);
+        setCategories([...cuisines, chip]);
+        console.log(cuisines);
     };
 
     const handleDeleteChip = (chip, index) => {
-        setCate(cate.filter((c) => c !== chip));
+        setCategories(cuisines.filter((c) => c !== chip));
     };
 
 
@@ -184,7 +185,7 @@ function UpdateRestaurant(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        formData.categories = cate;
+        formData.cuisines = cuisines;
         if (!isValid(formData)) {
             return;
         }
@@ -193,13 +194,13 @@ function UpdateRestaurant(props) {
         // const result = '';
 
         if (auth) {
-            RestaurantService.updateRestaurant(auth.userId, res.restaurantId, formData)
+            RestaurantService.updateRestaurant(auth.userId, restaurant.id, formData)
                 .then(function (response) {
 
                     RestaurantService.getRestaurantList(auth.userId)
                         .then(function (r) {
                             const data = r.data;
-                            setRestaurants(data);                            
+                            setRestaurants(data);
 
                             setAlertContent("Restaurant Update Saved Succeed");
                             setAlert(true);
@@ -244,12 +245,12 @@ function UpdateRestaurant(props) {
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <Rating name="half-rating" value={res ? res.rating : 0} precision={0.5} readOnly />
+                                            <Rating name="half-rating" value={restaurant ? restaurant.rating : 0} precision={0.5} readOnly />
                                         </Grid>
                                         <Grid item xs={12} >
                                             <ChipInput
-                                                label="Restaurant Categories"
-                                                value={cate === null ? '' : cate}
+                                                label="Restaurant Cuisines"
+                                                value={cuisines === null ? '' : cuisines}
                                                 fullWidth
                                                 onAdd={(chip) => handleAddChip(chip)}
                                                 onDelete={(chip, index) => handleDeleteChip(chip, index)}
@@ -264,7 +265,7 @@ function UpdateRestaurant(props) {
                                                 label="Phone Number"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.phone}
+                                                value={formData.phone ? formData.phone : ''}
                                             />
                                         </Grid>
 
@@ -291,7 +292,7 @@ function UpdateRestaurant(props) {
                                                 label="Address line 1"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.lineOne}
+                                                value={formData.lineOne ? formData.lineOne : ""}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -301,7 +302,7 @@ function UpdateRestaurant(props) {
                                                 label="Address line 2"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.lineTwo}
+                                                value={formData.lineTwo ? formData.lineTwo : ""}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -312,7 +313,7 @@ function UpdateRestaurant(props) {
                                                 label="City"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.city}
+                                                value={formData.city ? formData.city : ""}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -323,7 +324,7 @@ function UpdateRestaurant(props) {
                                                 label="State"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.state}
+                                                value={formData.state ? formData.state : ""}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -334,7 +335,7 @@ function UpdateRestaurant(props) {
                                                 label="Zip code"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.zip}
+                                                value={formData.zip ? formData.zip : ""}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
