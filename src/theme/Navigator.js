@@ -1,22 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles';
+import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import { RestaurantService } from "../services/RestaurantService";
-import AuthService from "../services/AuthService";
-
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { ProfileStateContext } from '../pages/Admin';
+import AuthService from "../services/AuthService";
+import { RestaurantService } from "../services/RestaurantService";
+
 
 const categories = [
   {
@@ -29,8 +29,15 @@ const categories = [
   {
     id: 'Menu',
     children: [
-      { id: 'Menu List', icon: <DnsRoundedIcon />, path: '/admin/restaurant/menu/list' },
+      { id: 'Menu List', icon: <DnsRoundedIcon />, path: '/admin/restaurant/menu/list/0' },
       { id: 'Add Menu', icon: <PermMediaOutlinedIcon />, path: '/admin/restaurant/menu/add' },
+    ],
+  },
+  {
+    id: 'Order',
+    children: [
+      { id: 'Active Order', icon: <DnsRoundedIcon />, path: '/admin/restaurant/order/list/0' },
+      { id: 'Archived Order', icon: <PermMediaOutlinedIcon />, path: '/admin/restaurant/order/archived/0' },
     ],
   },
   {

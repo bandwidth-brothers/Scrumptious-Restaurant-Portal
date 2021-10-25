@@ -42,18 +42,20 @@ const StyledTableRow = withStyles((theme) => ({
 
 
 
-function MenuList() {
+function MenuList(props) {
 
   const classes = useStyles();
   const [menuList, setMenuList] = useState(null);
   const history = useHistory();
   const [restaurants] = useContext(RestaurantsStateContext);
   const [restaurant, setRestaurant] = useState(null);
+  const rid = props.match.params.rid;
 
   useEffect(() => {
+    // console.log("rid" + rid);
 
     if (restaurants !== null) {
-      setRestaurant(restaurants[0]);
+      setRestaurant(rid !== '0' ? restaurants.find(r => r.id === parseInt(rid) ) : restaurants[0] );
     }else{
       history.push("/admin/list");
     }
@@ -65,7 +67,7 @@ function MenuList() {
     // console.log(menuList);
 
     if (auth && restaurant !== null && menuList === null) {
-      RestaurantService.getMenuList(auth.userId, restaurant.restaurantId)
+      RestaurantService.getMenuList(auth.userId, restaurant.id)
         .then(function (response) {
           const re = response.data;
           setMenuList(re);
@@ -80,7 +82,7 @@ function MenuList() {
 
   const handleEdit = (row)=>{
     // console.log(row);
-    history.push("/admin/restaurant/menu/update/" + row.id);
+    history.push("/admin/restaurant/" + restaurant.id +  "/menu/update/" + row.id);
   }
 
   return (
@@ -97,7 +99,7 @@ function MenuList() {
           onChange={(e) => {setRestaurant(restaurants.find(r => r.name === e.target.value )); setMenuList(null)}}          
         >
           {restaurants && restaurants.map((option) => (
-            <MenuItem key={option.restaurantId} value={option.name}>
+            <MenuItem key={option.id} value={option.name}>
               {option.name}
             </MenuItem>
           ))}

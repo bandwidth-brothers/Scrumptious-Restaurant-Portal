@@ -1,6 +1,6 @@
 [
     {
-        "restaurantId": "1",
+        "id": "1",
         "address": {
             "addressId": "fab7e247-c7a4-4b08-b87d-af00100250ef",
             "lineOne": "256 Kin Ave",
@@ -16,7 +16,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "2",
+        "id": "2",
         "address": {
             "addressId": "bcae4164-b419-491c-80b9-66dc2775364d",
             "lineOne": "685 Queee Ave",
@@ -32,7 +32,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "69064a10-51f3-40a3-bd34-bf6cdf9b1b12",
+        "id": "69064a10-51f3-40a3-bd34-bf6cdf9b1b12",
         "address": {
             "addressId": "bbe53701-77dc-4db8-8779-7fc4b0cc6543",
             "lineOne": "689 Lam Rd",
@@ -48,7 +48,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "72c98844-bd7e-44a0-8d50-d779b38b7c50",
+        "id": "72c98844-bd7e-44a0-8d50-d779b38b7c50",
         "address": {
             "addressId": "0c50b7b2-0a5d-45fb-aeeb-78e55734cbfb",
             "lineOne": "7809 Sky Rd",
@@ -64,7 +64,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "935a972c-6c6f-4c58-9e50-1b3f820e5396",
+        "id": "935a972c-6c6f-4c58-9e50-1b3f820e5396",
         "address": {
             "addressId": "7a4ae41f-7218-49fc-b274-65a7bd375c3a",
             "lineOne": "687 Cas Rd",
@@ -80,7 +80,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "97c87c89-ae02-4088-a193-dd2b4ed5f565",
+        "id": "97c87c89-ae02-4088-a193-dd2b4ed5f565",
         "address": {
             "addressId": "89ca8c74-180e-44d4-afe6-e916304919fc",
             "lineOne": "939 Dodge Rd",
@@ -96,7 +96,7 @@
         "restaurantCategories": []
     },
     {
-        "restaurantId": "f4855ecd-da59-4271-8575-4470b64fc9f9",
+        "id": "f4855ecd-da59-4271-8575-4470b64fc9f9",
         "address": {
             "addressId": "6f9a07ab-f935-47dd-be1b-421183ffee67",
             "lineOne": "246 King ave",

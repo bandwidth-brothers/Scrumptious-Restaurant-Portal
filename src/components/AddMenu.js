@@ -100,9 +100,10 @@ function AddMenu(props) {
             return;
         }
         const auth = AuthService.getCurrentUser();
+        console.log(restaurant.id + " : "  +menu)
 
         if (auth) {
-            RestaurantService.createMenu(auth.userId, restaurant.restaurantId, menu)
+            RestaurantService.createMenu(restaurant.id, menu)
                 .then(function (response) {
                     const re = response.data;
                     console.log(re);
@@ -141,7 +142,7 @@ function AddMenu(props) {
                                                 label="Please select your restaurant"
                                             >
                                                 {restaurants && restaurants.map((option) => (
-                                                    <MenuItem key={option.restaurantId} value={option}>
+                                                    <MenuItem key={option.id} value={option}>
                                                         {option.name}
                                                     </MenuItem>
                                                 ))}

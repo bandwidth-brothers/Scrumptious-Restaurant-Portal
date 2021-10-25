@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 function AddRestaurant() {
     const classes = useStyles();
     const history = useHistory();
+    const auth = AuthService.getCurrentUser();
 
     const initialRestauState = {
         name: "",
@@ -55,7 +56,7 @@ function AddRestaurant() {
         city: "",
         state: "",
         zip: "",
-        published: false
+        restaurantOwnerId: ""
     };
 
     const [restau, setRestau] = useState(initialRestauState);
@@ -108,11 +109,12 @@ function AddRestaurant() {
             return;
         }
 
-        const auth = AuthService.getCurrentUser();
+        
 
 
         if (auth) {
-            RestaurantService.createRestaurant(auth.userId, restau)
+            setRestau({ ...restau, "restaurantOwnerId": auth.userId });
+            RestaurantService.createRestaurant(restau)
                 .then(function (response) {
 
                     RestaurantService.getRestaurantList(auth.userId)

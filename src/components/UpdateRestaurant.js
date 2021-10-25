@@ -1,5 +1,3 @@
-import { RestaurantsStateContext } from '../pages/Admin';
-import React, { useContext, useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -8,13 +6,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
-
-import { Router, useHistory } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
+import ChipInput from 'material-ui-chip-input';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { RestaurantsStateContext } from '../pages/Admin';
 import AuthService from '../services/AuthService';
 import { RestaurantService } from '../services/RestaurantService';
-import ChipInput from 'material-ui-chip-input';
-import { MenuItem } from '@material-ui/core';
-import Rating from '@mui/material/Rating';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 
@@ -41,11 +45,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     buttons: {
-        display: 'flex',
-        justifyContent: 'flex-end',
+        display: 'inline',
+        justifyContent: 'flex-end'
+
     },
     button: {
-        marginTop: theme.spacing(3),
+
+        display: "inline-block",
+        // marginTop: theme.spacing(3),
         marginLeft: theme.spacing(1),
     },
     chipInputRoot: {
@@ -65,8 +72,6 @@ function UpdateRestaurant(props) {
 
     const [restaurants, setRestaurants] = useContext(RestaurantsStateContext);
     const [restaurant, setRestaurant] = useState(null);
-
-
 
     const id = props.match.params.id;
     // const restaurant = restaurants.find(s => s.id === parseInt(id))
@@ -89,6 +94,17 @@ function UpdateRestaurant(props) {
     const [alert, setAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
     const [errorAlertContent, seterrorAlertContent] = useState('');
+
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
     const isValid = (formData) => {
 
@@ -180,7 +196,7 @@ function UpdateRestaurant(props) {
     const handleInputChange = e => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-        console.log(formData);
+        // console.log(formData);
     };
 
     const handleSubmit = (e) => {
@@ -207,9 +223,7 @@ function UpdateRestaurant(props) {
                             setTimeout(() => {
                                 history.push("/admin/list");
                             }, 3000);
-
                         })
-
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -217,6 +231,27 @@ function UpdateRestaurant(props) {
         }
     };
 
+
+    const handleDeactive = (e) => {
+        e.preventDefault();
+
+        const auth = AuthService.getCurrentUser();
+
+        if (auth) {
+            RestaurantService.deactivateRestaurant(res.id)
+                .then(function (response) {
+                    RestaurantService.getRestaurantList(auth.userId)
+                        .then(function (r) {
+                            const data = r.data;
+                            setRestaurants(data);
+                            history.push("/admin/list");
+                        })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    };
 
     return (
         <React.Fragment>
@@ -265,11 +300,9 @@ function UpdateRestaurant(props) {
                                                 label="Phone Number"
                                                 fullWidth
                                                 onChange={handleInputChange}
-                                                value={formData.phone ? formData.phone : ''}
+                                                value={formData.phone ? formData.phone : ""}
                                             />
                                         </Grid>
-
-
 
                                         <Grid item xs={12} sm={6}>
                                             <TextField
@@ -351,19 +384,59 @@ function UpdateRestaurant(props) {
                                         <Grid item xs={12}>
                                             {errorAlert ? <Alert severity='error'>{errorAlertContent}</Alert> : <></>}
                                         </Grid>
+
+                                        <Grid item xs={6} sm={6}>
+                                            <div className={classes.buttons}>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={handleSubmit}
+                                                    className={classes.button}
+                                                    fullWidth
+                                                >
+                                                    SAVE
+                                                </Button>
+                                            </div>
+                                        </Grid>
+
+                                        <Grid item xs={6} sm={6}>
+                                            <div className={classes.buttons}>
+                                                <Button
+                                                    variant="contained"
+                                                    color="secondary"
+                                                    onClick={handleClickOpen}
+                                                    className={classes.button}
+                                                    fullWidth
+                                                >
+                                                    DEACTIVATE
+                                                </Button>
+                                            </div>
+                                        </Grid>
                                     </Grid>
                                 </React.Fragment>
 
-                                <div className={classes.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={handleSubmit}
-                                        className={classes.button}
-                                    >
-                                        SAVE
-                                    </Button>
-                                </div>
+
+                                <Dialog
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"                                >
+                                    <DialogTitle id="alert-dialog-title">
+                                        {"WARNING !"}
+                                    </DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                            Do you really want to DEACTIVATE the Restaurant?
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>CANCEL</Button>
+                                        <Button onClick={handleDeactive} autoFocus>
+                                            CONFIRM
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+
                                 <Grid item xs={12}>
                                     {alert ? <Alert severity='success'>{alertContent}</Alert> : <></>}
                                 </Grid>
