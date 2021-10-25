@@ -28,7 +28,7 @@ pipeline{
 	    	stage('deploy'){
 			steps{
 				withAWS(region: 'us-east-2', credentials: 'aws-creds'){
-					s3Upload(bucket: 'ss-scrumptious-artifacts', file: 'build', path: 'restaurant-portal')
+					s3Upload(bucket: 'ss-scrumptious-artifacts', file: 'build', path: 'restaurant-portal/')
 				}
 			}
 		}
