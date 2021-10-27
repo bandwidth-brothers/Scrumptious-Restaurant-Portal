@@ -30,6 +30,13 @@ pipeline{
 				withAWS(region: 'us-east-2', credentials: 'aws-creds'){
 					s3Upload(bucket: 'ss-scrumptious-artifacts', file: 'build', path: 'restaurant-portal/')
 				}
+				sh "docker build -t ss-scrumptious-repo:restaurant-portal ."
+				script{
+					docker.withRegistry("https://419106922284.dkr.ecr.us-east-2.amazonaws.com/","ecr:us-east-2:aws-creds"){
+						docker.image("ss-scrumptious-repo:restaurant-portal").push()
+					}
+				}
+				sh "docker system prune -fa"
 			}
 		}
 	}
