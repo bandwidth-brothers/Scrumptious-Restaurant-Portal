@@ -8,7 +8,6 @@ pipeline{
 		stage('checkout'){
 			steps{
 				checkout scm
-				sh 'yarn add auth/authAxios'
 			}
 		}
 		stage('analysis'){
