@@ -19,9 +19,7 @@ pipeline{
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
 					}
-					sh 'ls'
 					sh 'npm uninstall'
-					sh 'ls'
 				}
 			}
 		}
