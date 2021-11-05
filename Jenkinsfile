@@ -2,7 +2,7 @@ pipeline{
 	agent any
 	environment{
 		scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-		CI=true
+		CI=false
 	}
 	stages{
 		stage('checkout'){
@@ -11,12 +11,11 @@ pipeline{
 			}
 		}
 		stage('analysis'){
-			
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
+					sh 'npm run build'
 					sh 'npm run test:ci'
-					sh 'ls lcov-report'
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
 					}
@@ -26,14 +25,16 @@ pipeline{
 		}
 	    	stage('deploy'){
 			steps{
+				withAWS(region: 'us-east-2', credentials: 'aws-creds'){
+					s3Upload(bucket: 'ss-scrumptious-artifacts', file: 'build', path: 'restaurant-portal/')
+				}
 				sh "docker build -t ss-scrumptious-repo:restaurant-portal ."
 				script{
 					docker.withRegistry("https://419106922284.dkr.ecr.us-east-2.amazonaws.com/","ecr:us-east-2:aws-creds"){
 						docker.image("ss-scrumptious-repo:restaurant-portal").push()
 					}
 				}
-				sh "docker image rm ss-scrumptious-repo:restaurant-portal"
-				sh "docker image rm 419106922284.dkr.ecr.us-east-2.amazonaws.com/ss-scrumptious-repo:restaurant-portal"
+				sh "docker system prune -fa"
 			}
 		}
 	}
