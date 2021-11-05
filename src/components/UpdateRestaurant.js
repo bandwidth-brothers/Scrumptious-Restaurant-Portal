@@ -238,7 +238,7 @@ function UpdateRestaurant(props) {
         const auth = AuthService.getCurrentUser();
 
         if (auth) {
-            RestaurantService.deactivateRestaurant(res.id)
+            RestaurantService.deactivateRestaurant(restaurant.id)
                 .then(function (response) {
                     RestaurantService.getRestaurantList(auth.userId)
                         .then(function (r) {

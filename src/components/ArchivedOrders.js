@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { RestaurantsStateContext } from "../pages/Admin";
 import AuthService from "../services/AuthService";
-import { RestaurantService } from "../services/RestaurantService";
+import { OrderService } from "../services/OrderService";
 
 const useStyles = makeStyles({
   table: {
@@ -55,7 +55,7 @@ function ArchivedOrders(props) {
   useEffect(() => {
 
     if (restaurants !== null) {
-      setRestaurant(rid !== '0' ? restaurants.find(r => r.id === parseInt(rid) ) : restaurants[0] );
+      setRestaurant(rid !== '0' ? restaurants.find(r => r.id === parseInt(rid)) : restaurants[0]);
     } else {
       history.push("/admin/list");
     }
@@ -67,16 +67,25 @@ function ArchivedOrders(props) {
     // console.log(menuList);
 
     if (auth && restaurant !== null && orderList === null) {
-      RestaurantService.getOrderList(restaurant.id)
+      OrderService.getAllOrdersByRestaurant(restaurant.id, auth.userId)
         .then(function (response) {
           const re = response.data;
-          re.sort((a,b) => a.status.localeCompare(b.status)  );
-          setOrderList(re.filter(o => o.status === "COMPLETE"));         
-
+          setOrderList(re.filter(o => o.preparationStatus === "Completed"));
+          console.log(re)
         })
         .catch(function (error) {
           console.log(error);
         });
+      // RestaurantService.getOrderList(restaurant.id)
+      //   .then(function (response) {
+      //     const re = response.data;
+      //     re.sort((a,b) => a.preparationStatus.localeCompare(b.preparationStatus)  );
+      //     setOrderList(re.filter(o => o.preparationStatus === "COMPLETE"));         
+
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     }
 
   }, [restaurant, orderList]);
@@ -118,8 +127,8 @@ function ArchivedOrders(props) {
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
-                
-              <StyledTableCell>No.</StyledTableCell>
+
+                <StyledTableCell>No.</StyledTableCell>
                 <StyledTableCell align="center">ConfirmationCode</StyledTableCell>
                 <StyledTableCell align="center">Order Time</StyledTableCell>
                 <StyledTableCell align="center">Request Delivery Time</StyledTableCell>
@@ -142,8 +151,9 @@ function ArchivedOrders(props) {
                   <StyledTableCell align="center">{new Date(row.requestedDeliveryTime).toLocaleTimeString('en-US')}</StyledTableCell>
                   <StyledTableCell
                     align="center"
-                    style={row.status==="COMPLETE" ? { color: "green" } : { color: "red" } }
-                  >{row.status}</StyledTableCell>
+                    style={row.preparationStatus === "Order Placed" ? { color: "#ffd300" } :
+                      row.preparationStatus === "Cancelled" ? { color: "red" } : { color: "GREEN" }}
+                  >{row.preparationStatus}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

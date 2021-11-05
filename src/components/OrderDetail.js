@@ -12,12 +12,15 @@ import AuthService from '../services/AuthService';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useHistory, Route } from 'react-router-dom';
+import { OrderService } from '../services/OrderService';
+import UpdateOrder from './Modals/UpdateOrder'
 
 const theme = createTheme();
 
 export default function OrderDetail(props) {
     const history = useHistory();
     const [order, setOrder] = useState(null);
+    const [show, setShow] = useState(false)
     const id = props.match.params.id;
     const rid = props.match.params.rid;
 
@@ -25,17 +28,39 @@ export default function OrderDetail(props) {
         const auth = AuthService.getCurrentUser();
 
         if (auth) {
-            RestaurantService.getOrderById(id)
-                .then(function (response) {
-                    const result = response.data;
-                    setOrder(result);
-                    console.log(result);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            if (order === null) {
+                OrderService.getOrderById(id)
+                    .then(function (response) {
+                        const result = response.data;
+                        setOrder(result);
+                        console.log(result);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
-    }, []);
+    }, [id, order]);
+
+    const handleOpen = () => {
+        setShow(true)
+    }
+
+    const handleClose = () => {
+        setShow(false)
+    }
+
+    const reloadOrder = () => {
+        OrderService.getOrderById(id)
+            .then(function (response) {
+                const result = response.data;
+                setOrder(result);
+                console.log(result);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         order ?
@@ -49,7 +74,7 @@ export default function OrderDetail(props) {
                                 Order Number - {order.id}
                             </Typography>
                             <List disablePadding>
-                                {order.menuitemOrder && order.menuitemOrder.map((product) => (
+                                {order.menuitemOrders && order.menuitemOrders.map((product) => (
                                     <ListItem key={product.menuitem.name} sx={{ py: 1, px: 0 }}>
                                         <ListItemText primary={product.menuitem.name} secondary={`$` + product.menuitem.price} />
                                         <Typography variant="body2">{product.quantity}</Typography>
@@ -59,7 +84,7 @@ export default function OrderDetail(props) {
                                 <ListItem sx={{ py: 1, px: 0 }}>
                                     <ListItemText primary="Total Items" />
                                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                        {order.menuitemOrder.reduce((n, { quantity }) => n + quantity, 0)}
+                                        {order.menuitemOrders.reduce((n, { quantity }) => n + quantity, 0)}
                                     </Typography>
                                 </ListItem>
                             </List>
@@ -101,23 +126,27 @@ export default function OrderDetail(props) {
                                             <Typography gutterBottom>Status</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography gutterBottom>{order.status}</Typography>
+                                            <Typography gutterBottom>{order.preparationStatus}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                
-                                <Button onClick={()=>{
-                                    order.status === "COMPLETE" ?
-                                    history.push("/admin/restaurant/order/archived/" + rid) : history.push("/admin/restaurant/order/list/" + rid)
-                                    }} sx={{ mt: 3, ml: 1 }}>
+
+                                <Button onClick={() => {
+                                    order.preparationStatus === "COMPLETE" ?
+                                        history.push("/admin/restaurant/order/archived/" + rid) : history.push("/admin/restaurant/order/list/" + rid)
+                                }} sx={{ mt: 3, ml: 1 }}>
                                     Back
                                 </Button>
-                        </Box>
+                                <Button sx={{ mt: 3, ml: 1 }} onClick={handleOpen} onSubmit={reloadOrder}>
+                                    Edit
+                                </Button>
+                            </Box>
                         </React.Fragment>
                     </Paper>
                 </Container>
+                <UpdateOrder show={show} onHide={handleClose} onSubmit={reloadOrder} />
             </ThemeProvider> : null
     );
 }
