@@ -73,5 +73,5 @@
     "reportPath": "reports",
     "reportFile": "test-reporter.xml"
   },
-  "proxy": "https://localhost:3000"
+  "proxy": "http://18.219.147.30:3000"
 }
