@@ -5,7 +5,7 @@ const auth = AuthService.getCurrentUser();
 
 
 export default axios.create({
-  baseURL: "http://18.219.147.30:8080/restaurant",
+  baseURL: "http://52.15.235.234:8080/restaurant",
   headers: {
     "Content-type": "application/json",
     "Authorization": auth ? auth.token : ""
