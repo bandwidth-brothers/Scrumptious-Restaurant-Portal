@@ -6,10 +6,10 @@ class AuthService {
     async login(username, password) {
 
         const response = await axios
-            .post(API_URL + "auth/login", {
+            .post("auth/login", {
                 username,
                 password
-            });
+            }, {baseUrl: API_URL});
             
         if(response.data.token) {            
             localStorage.setItem("user", JSON.stringify(response.data));
@@ -21,7 +21,7 @@ class AuthService {
     async register(data) {
 
         const response = await axios
-            .post(API_URL + "restaurant/owners/register", data);
+            .post("restaurant/owners/register", data, {baseUrl: API_URL});
         return response.data;
     }
 
