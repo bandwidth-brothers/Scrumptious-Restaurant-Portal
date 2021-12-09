@@ -66,7 +66,7 @@ function ArchivedOrders(props) {
     const auth = AuthService.getCurrentUser();
     // console.log(menuList);
 
-    if (auth && restaurant !== null && orderList === null) {
+    if (auth && restaurant && orderList === null) {
       RestaurantService.getOrderList(restaurant.id)
         .then(function (response) {
           const re = response.data;
@@ -100,7 +100,7 @@ function ArchivedOrders(props) {
             id="restaurantId"
             name="restaurant"
             label="Restaurant"
-            value={restaurant !== null ? restaurant.name : ''}
+            value={restaurant ? restaurant.name : ''}
             onChange={(e) => { setRestaurant(restaurants.find(r => r.name === e.target.value)); setOrderList(null) }}
           >
             {restaurants && restaurants.map((option) => (

@@ -66,7 +66,8 @@ function MenuList(props) {
     const auth = AuthService.getCurrentUser();
     // console.log(menuList);
 
-    if (auth && restaurant !== null && menuList === null) {
+    if (auth && restaurant && menuList === null) {
+      console.log(restaurant);
       RestaurantService.getMenuList(auth.userId, restaurant.id)
         .then(function (response) {
           const re = response.data;
@@ -87,6 +88,9 @@ function MenuList(props) {
 
   return (
 
+    restaurants?(
+
+    
     <div>
     <Grid item xs={12}>
       <TableContainer component={Paper}>
@@ -135,6 +139,7 @@ function MenuList(props) {
       </TableContainer>
     </Grid>
   </div>
+  ):null
   );
 }
 

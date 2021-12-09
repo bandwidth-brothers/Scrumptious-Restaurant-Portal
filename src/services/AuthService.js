@@ -1,12 +1,14 @@
 import axios from "axios";
+import { environment } from "../environment";
 
-const API_URL = "http://localhost:8080/";
+const Login_URL = environment.LOGIN_URL;
+const BASE_RESTAURANT_URL = environment.BASE_RESTAURANT_URL;
 
 class AuthService {
     async login(username, password) {
 
         const response = await axios
-            .post(API_URL + "auth/login", {
+            .post(Login_URL, {
                 username,
                 password
             });
@@ -21,7 +23,7 @@ class AuthService {
     async register(data) {
 
         const response = await axios
-            .post(API_URL + "restaurant/owners/register", data);
+            .post(BASE_RESTAURANT_URL + "/owners/register", data);
         return response.data;
     }
 
