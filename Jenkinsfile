@@ -19,7 +19,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 withAWS(region: 'us-east-2', credentials: 'ecr_credentials'){
-                    sh 'aws s3 cp ./build/ s3://restaurant-react-hosting --recursive --acl public-read'
+                    sh 'aws s3 cp ./build/ s3://restaurant-react-hosting --recursive'
               }
             }
         }
