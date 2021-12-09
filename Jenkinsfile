@@ -12,7 +12,7 @@ pipeline {
         stage('Build'){
             steps{
                 sh 'npm install --force'
-                sh 'npm run build'
+                sh 'CI=false npm run build'
             }
         }
         
