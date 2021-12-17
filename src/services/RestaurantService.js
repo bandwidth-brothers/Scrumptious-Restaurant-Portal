@@ -35,7 +35,7 @@ const getProfile = (uid) => {
 };
 
 const updateProfile = (uid, data) => {
-  return http.put(`/owner/${uid}`, data);
+  return http.put(`/owners/${uid}`, data);
 };
 
 const getOrderList = (rid) => {

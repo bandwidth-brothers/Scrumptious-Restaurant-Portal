@@ -56,7 +56,7 @@ function AddRestaurant() {
         city: "",
         state: "",
         zip: "",
-        restaurantOwnerId: ""
+        restaurantOwnerId: auth.userId
     };
 
     const [restau, setRestau] = useState(initialRestauState);
@@ -113,7 +113,8 @@ function AddRestaurant() {
 
 
         if (auth) {
-            setRestau({ ...restau, "restaurantOwnerId": auth.userId });
+            // setRestau({ ...restau, "restaurantOwnerId": auth.userId });
+            console.log(restau);
             RestaurantService.createRestaurant(restau)
                 .then(function (response) {
 

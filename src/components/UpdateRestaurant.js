@@ -77,14 +77,14 @@ function UpdateRestaurant(props) {
     // const res = restaurants.find(s => s.restaurantId === parseInt(id))
     const initialFormDataState = {
         name: '',
-        categories: [],
+        cuisines: [],
         phone: '',
         priceCategory: '',
         lineOne: '',
         lineTwo: '',
         city: '',
         state: '',
-        zip: ''
+        zip: '',
 
     };
     const [formData, setFormData] = useState(initialFormDataState);
@@ -161,11 +161,11 @@ function UpdateRestaurant(props) {
         if (res !== null) {
             setFormData({
                 name: res.name,
-                categories: [],
+                cuisines: [],
                 phone: res.phone,
                 priceCategory: res.priceCategory,
-                lineOne: res.address.lineOne,
-                lineTwo: res.address.lineTwo,
+                lineOne: res.address.line1,
+                lineTwo: res.address.line2,
                 city: res.address.city,
                 state: res.address.state,
                 zip: res.address.zip,
@@ -200,7 +200,7 @@ function UpdateRestaurant(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        formData.categories = cate;
+        formData.cuisines = cate;
         if (!isValid(formData)) {
             return;
         }
@@ -208,6 +208,7 @@ function UpdateRestaurant(props) {
         const auth = AuthService.getCurrentUser();
         // const result = '';
 
+        console.log(formData);
         if (auth) {
             RestaurantService.updateRestaurant(auth.userId, res.id, formData)
                 .then(function (response) {
