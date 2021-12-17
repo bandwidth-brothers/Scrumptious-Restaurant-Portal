@@ -1,5 +1,5 @@
 
-const base_url = 'http://ss-scrumptious-api.com';
+const base_url = 'http://dualstack.application-load-balancer-1001380647.us-east-1.elb.amazonaws.com';
 
 
 export const environment = {
