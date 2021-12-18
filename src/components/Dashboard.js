@@ -47,7 +47,7 @@ export default function DashBoard() {
     const auth = AuthService.getCurrentUser();
 
     if (auth && restaurants === null) {
-      RestaurantService.getRestaurantList(auth.userId)
+      RestaurantService.getRestaurantsList(auth.userId)
         .then(function (response) {
           const result = response.data;
           setRestaurants(result);

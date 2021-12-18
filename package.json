@@ -13,13 +13,15 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "formik": "^2.2.9",
     "jest-sonar-reporter": "^1.3.0",
     "material-ui-chip-input": "^2.0.0-beta.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,23 +53,23 @@
     "enzyme-adapter-react-16": "^1.15.6"
   },
   "jest": {
-  "collectCoverageFrom": [
-    "**/*.{js,jsx}",
-    "!coverage/**",
-    "!node_modules/**",
-    "!src/index.js",
-    "!src/setupTests.js",
-    "!public/**",
-    "!server-build/**"
-  ],
-  "moduleNameMapper": {
-    "\\.(css|less|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
-  },
-  "coverageReporters": [
-    "json",
-    "lcov",
-    "text"
-  ]
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!coverage/**",
+      "!node_modules/**",
+      "!src/index.js",
+      "!src/setupTests.js",
+      "!public/**",
+      "!server-build/**"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
+    },
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text"
+    ]
   },
   "jestSonar": {
     "reportPath": "reports",

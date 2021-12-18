@@ -16,6 +16,7 @@ import { useContext, useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { RestaurantsStateContext } from "../pages/Admin";
 import AuthService from "../services/AuthService";
+import { OrderService } from '../services/OrderService';
 import { RestaurantService } from "../services/RestaurantService";
 
 const useStyles = makeStyles({
@@ -52,7 +53,7 @@ function OrderList(props) {
   const history = useHistory();
   const [restaurants] = useContext(RestaurantsStateContext);
   const [restaurant, setRestaurant] = useState(null);
-  const [status, setStatus] = useState("PENDING");
+  const [preparationStatus, setStatus] = useState("Order Placed");
   const [checked, setChecked] = useState([]);
   // const rid = props.match.params.rid;
   const [rid, setRid] = useState(props.match.params.rid);
@@ -61,7 +62,7 @@ function OrderList(props) {
   useEffect(() => {
 
     if (restaurants !== null) {
-      setRestaurant(rid !== '0' ? restaurants.find(r => r.id === parseInt(rid) ) : restaurants[0] );
+      setRestaurant(rid !== '0' ? restaurants.find(r => r.id === parseInt(rid)) : restaurants[0]);
     } else {
       history.push("/admin/list");
     }
@@ -73,17 +74,27 @@ function OrderList(props) {
     // console.log(menuList);
 
     if (auth && restaurant !== null && orderList === null) {
-      RestaurantService.getOrderList(restaurant.id)
+      console.log(restaurant)
+      OrderService.getAllOrdersByRestaurant(restaurant.id, auth.userId)
         .then(function (response) {
           const re = response.data;
-          re.sort((a,b) => a.status.localeCompare(b.status)  );
-          setOrderList(re.filter(o => o.status !== "COMPLETE"));
-          
-          console.log(re.filter(o => o.status === "PENDING"))
+          setOrderList(re.filter(o => o.preparationStatus !== "Completed"));
+          console.log(re)
         })
         .catch(function (error) {
           console.log(error);
         });
+      // RestaurantService.getOrderList(restaurant.id)
+      //   .then(function (response) {
+      //     const re = response.data;
+      //     re.sort((a,b) => a.preparationStatus.localeCompare(b.preparationStatus)  );
+      //     setOrderList(re.filter(o => o.preparationStatus !== "COMPLETE"));
+
+      //     console.log(re.filter(o => o.preparationStatus === "Order Placed"))
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     }
 
   }, [restaurant, orderList]);
@@ -125,7 +136,7 @@ function OrderList(props) {
     // }
     const formData = {
       ids: checked,
-      status: status
+      preparationStatus: preparationStatus
     }
     const auth = AuthService.getCurrentUser();
 
@@ -134,9 +145,9 @@ function OrderList(props) {
         .then(function (response) {
           const res = response;
           console.log(res);
-          if (res.status === 204) {
+          if (res.preparationStatus === 204) {
             console.log("204 get");
-            setOrderList(orderList.map(o => checked.includes(o.id) ? { ...o, status: status } : o));
+            setOrderList(orderList.map(o => checked.includes(o.id) ? { ...o, preparationStatus: preparationStatus } : o));
           }
 
         })
@@ -179,16 +190,16 @@ function OrderList(props) {
             name="updateStatus"
             label="Update Status"
             fullWidth
-            value={status}
+            value={preparationStatus}
             onChange={handleStatusChange}
           // autoComplete="shipping address-line2"
           >
-            <MenuItem value="PENDING" >PENDING</MenuItem>
+            <MenuItem value="Order Placed" >Order Placed</MenuItem>
             <MenuItem value="READY" >READY</MenuItem>
             <MenuItem value="COMPLETE" >COMPLETE</MenuItem>
           </TextField>
         </Grid>
-        <Grid item  style={{ display: "flex" }}>
+        <Grid item style={{ display: "flex" }}>
           <Button color="primary"
             onClick={handleSubmit}
             variant="contained">
@@ -240,8 +251,9 @@ function OrderList(props) {
                   <StyledTableCell align="center">{new Date(row.requestedDeliveryTime).toLocaleTimeString('en-US')}</StyledTableCell>
                   <StyledTableCell
                     align="center"
-                    style={row.status==="PENDING" ? { color: "red" } : { color: "GREEN" } }
-                  >{row.status}</StyledTableCell>
+                    style={row.preparationStatus === "Order Placed" ? { color: "#ffd300" } :
+                      row.preparationStatus === "Cancelled" ? { color: "red" } : { color: "GREEN" }}
+                  >{row.preparationStatus}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
