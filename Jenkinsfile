@@ -15,10 +15,11 @@ pipeline{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
 					sh 'npm run build'
+					/**
 					sh 'npm run test:ci'
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
-					}
+					}*/
 					sh 'npm uninstall'
 				}
 			}
@@ -26,7 +27,7 @@ pipeline{
 	    	stage('deploy'){
 			steps{
 				withAWS(region: 'us-east-2', credentials: 'aws-creds'){
-					s3Upload(bucket: 'ss-scrumptious-artifacts', file: 'build', path: 'restaurant-portal/')
+					s3Upload(bucket: 'static-scrumptious', file: 'build', path: 'restaurant-portal/')
 				}
 				sh "docker build -t ss-scrumptious-repo:restaurant-portal ."
 				script{

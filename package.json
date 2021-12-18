@@ -74,5 +74,6 @@
   "jestSonar": {
     "reportPath": "reports",
     "reportFile": "test-reporter.xml"
-  }
+  },
+  "proxy": "http://18.219.147.30:8080"
 }
