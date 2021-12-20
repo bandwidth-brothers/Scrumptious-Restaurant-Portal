@@ -1,10 +1,11 @@
 import axios from "axios";
+import { environment } from "environment";
 import AuthService from "../services/AuthService";
 
 const auth = AuthService.getCurrentUser();
 
 const restaurantInstance = axios.create({
-  baseURL: "http://localhost:8080/restaurant",
+  baseURL: environment.BASE_RESTAURANT_URL,
 
   headers: {
     "Content-type": "application/json",
@@ -13,7 +14,7 @@ const restaurantInstance = axios.create({
 });
 
 const orderInstance = axios.create({
-  baseURL: "http://localhost:8080/order",
+  baseURL: environment.BASE_ORDER_URL,
   headers: {
     "Content-type": "application/json",
     "Authorization": auth ? auth.token : ""

@@ -77,9 +77,11 @@ function OrderList(props) {
       console.log(restaurant)
       OrderService.getAllOrdersByRestaurant(restaurant.id, auth.userId)
         .then(function (response) {
-          const re = response.data;
-          setOrderList(re.filter(o => o.preparationStatus !== "Completed"));
-          console.log(re)
+          if(response.data){
+            const re = response.data;
+            setOrderList(re.filter(o => o.preparationStatus !== "Completed"));
+            console.log(re)
+          }
         })
         .catch(function (error) {
           console.log(error);
