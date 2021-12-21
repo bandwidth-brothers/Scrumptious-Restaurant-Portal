@@ -147,7 +147,7 @@ function UpdateRestaurant(props) {
 
     useEffect(() => {
         console.log(restaurants)
-        if (restaurants !== null) {
+        if (restaurants) {
             setRestaurant(restaurants.find(s => s.id === parseInt(id)));
         } else {
             history.push("/admin/list");
@@ -157,14 +157,15 @@ function UpdateRestaurant(props) {
 
     useEffect(() => {
 
-        if (restaurant !== null) {
+        if (restaurant) {
+            console.log("restaurant: " + JSON.stringify(restaurant));
             setFormData({
                 name: restaurant.name,
                 cuisines: [],
                 phone: restaurant.phone,
                 priceCategory: restaurant.priceCategory,
-                lineOne: restaurant.address.lineOne,
-                lineTwo: restaurant.address.lineTwo,
+                lineOne: restaurant.address.line1,
+                lineTwo: restaurant.address.line2,
                 city: restaurant.address.city,
                 state: restaurant.address.state,
                 zip: restaurant.address.zip,
@@ -210,10 +211,11 @@ function UpdateRestaurant(props) {
         // const result = '';
 
         if (auth) {
+            console.log(formData);
             RestaurantService.updateRestaurant(auth.userId, restaurant.id, formData)
                 .then(function (response) {
 
-                    RestaurantService.getRestaurantList(auth.userId)
+                    RestaurantService.getRestaurantsList(auth.userId)
                         .then(function (r) {
                             const data = r.data;
                             setRestaurants(data);

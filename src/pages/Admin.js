@@ -4,7 +4,7 @@ import Paperbase from '../theme/Paperbase'
 export const RestaurantsStateContext = React.createContext();
 export const ProfileStateContext = React.createContext();
 
-function Admin(props) {
+function Admin() {
 
   const [restaurants, setRestaurants] = React.useState(null);
   const [profile, setProfile] = React.useState(null);
