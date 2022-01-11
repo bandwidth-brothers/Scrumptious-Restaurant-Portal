@@ -242,7 +242,7 @@ function UpdateRestaurant(props) {
         if (auth) {
             RestaurantService.deactivateRestaurant(restaurant.id)
                 .then(function (response) {
-                    RestaurantService.getRestaurantList(auth.userId)
+                    RestaurantService.getRestaurantsList(auth.userId)
                         .then(function (r) {
                             const data = r.data;
                             setRestaurants(data);

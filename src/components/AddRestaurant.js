@@ -56,7 +56,7 @@ function AddRestaurant() {
         city: "",
         state: "",
         zip: "",
-        restaurantOwnerId: ""
+        restaurantOwnerId: auth.userId
     };
 
     const [restau, setRestau] = useState(initialRestauState);
@@ -105,19 +105,17 @@ function AddRestaurant() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // setRestau({ ...restau, "restaurantOwnerId": auth.userId });
         if (!isValid(restau)) {
             return;
         }
 
-        
-
-
         if (auth) {
-            setRestau({ ...restau, "restaurantOwnerId": auth.userId });
+            
             RestaurantService.createRestaurant(restau)
                 .then(function (response) {
 
-                    RestaurantService.getRestaurantList(auth.userId)
+                    RestaurantService.getRestaurantsList(auth.userId)
                     .then(function (r) {
                         const data = r.data;
                         setRestaurants(data);
